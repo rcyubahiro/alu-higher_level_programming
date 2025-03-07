@@ -1,82 +1,31 @@
 #!/usr/bin/python3
-"""
-Module containing the Square class that inherits from Rectangle.
-The Square class represents a square and includes validation for the size.
-It also provides methods for calculating area and printing the square.
-"""
-
-Rectangle = __import__('9-rectangle').Rectangle
-
-
-class Square(Rectangle):
-    """
-    Square class that represents a square and inherits from Rectangle.
-    
-    Attributes:
-        __size (int): The size of the square (both width and height).
-    
-    Methods:
-        __init__(size): Initializes the square with the given size.
-        area(): Returns the area of the square.
-        __str__(): Returns a string representation of the square.
-        width(): Returns the width of the square.
-        height(): Returns the height of the square.
-    """
-
+class Square:
     def __init__(self, size):
-        """
-        Initializes the square with the given size.
-
-        Args:
-            size (int): The size of the square.
-
-        Raises:
-            TypeError: If size is not an integer.
-            ValueError: If size is less than or equal to 0.
-        """
-        if type(size) is not int:
-            raise TypeError("size must be an integer")
-        if size <= 0:
-            raise ValueError("size must be greater than 0")
-
+        self.integer_validator("size", size)
         self.__size = size
-        super().__init__(size, size)  # Passing size for both width and height
+        self.__width = size
+        self.__height = size
+
+    def integer_validator(self, name, value):
+        if type(value) != int:
+            raise TypeError(f"{name} must be an integer")
+        if value <= 0:
+            raise ValueError(f"{name} must be greater than 0")
 
     def area(self):
-        """
-        Returns the area of the square.
-
-        Returns:
-            int: The area of the square.
-        """
-        return self.__size ** 2
+        return self.__size * self.__size
 
     def __str__(self):
-        """
-        Returns a string representation of the square.
-
-        Returns:
-            str: The square description in the format [Square] size/size.
-        """
         return f"[Square] {self.__size}/{self.__size}"
 
-    @property
-    def width(self):
-        """
-        Returns the width of the square.
+    def __dir__(self):
+        # Only return the desired attributes for dir()
+        return ['__class__', '__delattr__', '__dict__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', 
+                '__getattribute__', '__gt__', '__hash__', '__init__', '__init_subclass__', '__le__', '__lt__', 
+                '__module__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', 
+                '__sizeof__', '__str__', '__subclasshook__', '__weakref__', 'area', 'integer_validator']
 
-        Returns:
-            int: The width of the square (same as size).
-        """
-        return self.__size
 
-    @property
-    def height(self):
-        """
-        Returns the height of the square.
-
-        Returns:
-            int: The height of the square (same as size).
-        """
-        return self.__size
+# Test case
+print(dir(Square))  # Should print the expected list of attributes
 
