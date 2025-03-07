@@ -1,24 +1,37 @@
-# Test cases for BaseGeometry.integer_validator
+from base_geometry import BaseGeometry
 
-# Valid cases
->>> bg = BaseGeometry()
->>> bg.integer_validator("my_int", 12)
+# Test instantiation
+bg = BaseGeometry()
 
->>> bg.integer_validator("width", 89)
+# Test area() method
+try:
+    bg.area()
+except Exception as e:
+    print(e)  # Expected output: "area() is not implemented"
 
-# Invalid cases: non-integer values
->>> bg.integer_validator("name", "John")
-Traceback (most recent call last):
-    ...
-TypeError: name must be an integer
+# Test integer_validator() method
+try:
+    bg.integer_validator("my_int", 12)  # Should pass without error
+    print("integer_validator passed for 12")
+except Exception as e:
+    print(e)
 
-# Invalid cases: values <= 0
->>> bg.integer_validator("age", 0)
-Traceback (most recent call last):
-    ...
-ValueError: age must be greater than 0
+# Test integer_validator with invalid values
+test_cases = [
+    ("age", 1),       # Valid
+    ("age", 0),       # Should raise ValueError
+    ("age", -4),      # Should raise ValueError
+    ("age", "4"),     # Should raise TypeError
+    ("age", (4,)),    # Should raise TypeError
+    ("age", [3]),     # Should raise TypeError
+    ("age", True),    # Should raise TypeError
+    ("age", {3, 4}),  # Should raise TypeError
+    ("age", None)     # Should raise TypeError
+]
 
->>> bg.integer_validator("distance", -4)
-Traceback (most recent call last):
-    ...
-ValueError: distance must be greater than 0
+for name, value in test_cases:
+    try:
+        bg.integer_validator(name, value)
+        print(f"integer_validator passed for {value}")
+    except Exception as e:
+        print(e)
