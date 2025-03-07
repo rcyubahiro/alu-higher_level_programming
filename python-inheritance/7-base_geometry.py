@@ -1,35 +1,32 @@
 #!/usr/bin/python3
-BaseGeometry = __import__('7-base_geometry').BaseGeometry
+class BaseGeometry:
+    """
+    A class used to represent a basic geometric figure.
 
-bg = BaseGeometry()
+    Methods:
+        area(self): Raises an Exception indicating the area method is not implemented.
+        integer_validator(self, name, value): Validates that the value is a positive integer.
+    """
 
-# Test valid cases
-bg.integer_validator("my_int", 12)
-bg.integer_validator("width", 89)
+    def area(self):
+        """
+        Raises an Exception with a message indicating that the area method is not implemented.
+        """
+        raise Exception("area() is not implemented")
 
-# Test invalid cases
-try:
-    bg.integer_validator("name", "John")
-except Exception as e:
-    print("[{}] {}".format(e.__class__.__name__, e))
+    def integer_validator(self, name, value):
+        """
+        Validates that the value is a positive integer.
 
-try:
-    bg.integer_validator("age", 0)
-except Exception as e:
-    print("[{}] {}".format(e.__class__.__name__, e))
+        Args:
+            name (str): The name of the variable (for error reporting).
+            value (int): The value to validate.
 
-try:
-    bg.integer_validator("age", -4)
-except Exception as e:
-    print("[{}] {}".format(e.__class__.__name__, e))
-
-try:
-    bg.integer_validator("age", 13.5)
-except Exception as e:
-    print("[{}] {}".format(e.__class__.__name__, e))
-
-# Test the area method
-try:
-    bg.area()
-except Exception as e:
-    print("[{}] {}".format(e.__class__.__name__, e))
+        Raises:
+            TypeError: If value is not an integer.
+            ValueError: If value is less than or equal to 0.
+        """
+        if type(value) is not int:
+            raise TypeError(f"{name} must be an integer")
+        if value <= 0:
+            raise ValueError(f"{name} must be greater than 0")
