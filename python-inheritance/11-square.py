@@ -8,7 +8,7 @@ Rectangle = __import__('9-rectangle').Rectangle
 
 class Square(Rectangle):
     """A class representing a Square, subclass of Rectangle."""
-    
+
     def __init__(self, size):
         """Initialize the square with a size."""
         self.integer_validator("size", size)  # Validate size
