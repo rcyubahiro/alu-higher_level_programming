@@ -13,7 +13,7 @@ class Square(Rectangle):
         """Initialize the square with a size."""
         self.integer_validator("size", size)  # Validate size
         self.__size = size
-        super().__init__(self.__size, self.__size)  # Call the Rectangle constructor
+        super().__init__(self.__size, self.__size)
 
     def __str__(self):
         """Return string representation of the square."""
