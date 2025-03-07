@@ -1,4 +1,9 @@
 #!/usr/bin/python3
+"""
+BaseGeometry module
+Defines a class with methods for area computation and integer validation.
+"""
+
 class BaseGeometry:
     """BaseGeometry class with area method and integer validation."""
 
