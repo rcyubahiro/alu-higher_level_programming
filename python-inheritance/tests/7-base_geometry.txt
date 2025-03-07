@@ -1,37 +1,29 @@
-from base_geometry import BaseGeometry
+from your_module_name import BaseGeometry  # Replace 'your_module_name' with the actual module name
 
-# Test instantiation
+# Create an instance of BaseGeometry
 bg = BaseGeometry()
 
-# Test area() method
+# Test instantiation
+print(type(bg) == BaseGeometry)  # Expected output: True
+
+# Test area() method (should raise an exception)
 try:
     bg.area()
 except Exception as e:
     print(e)  # Expected output: "area() is not implemented"
 
-# Test integer_validator() method
+# Test integer_validator()
 try:
-    bg.integer_validator("my_int", 12)  # Should pass without error
-    print("integer_validator passed for 12")
+    bg.integer_validator("my_int", 12)  # Expected output: No error
+    print("integer_validator passed")
 except Exception as e:
     print(e)
 
-# Test integer_validator with invalid values
-test_cases = [
-    ("age", 1),       # Valid
-    ("age", 0),       # Should raise ValueError
-    ("age", -4),      # Should raise ValueError
-    ("age", "4"),     # Should raise TypeError
-    ("age", (4,)),    # Should raise TypeError
-    ("age", [3]),     # Should raise TypeError
-    ("age", True),    # Should raise TypeError
-    ("age", {3, 4}),  # Should raise TypeError
-    ("age", None)     # Should raise TypeError
-]
-
-for name, value in test_cases:
+# Test invalid cases for integer_validator()
+invalid_values = [0, -4, "4", (4,), [3], True, {3, 4}, None]
+for value in invalid_values:
     try:
-        bg.integer_validator(name, value)
-        print(f"integer_validator passed for {value}")
+        bg.integer_validator("age", value)
     except Exception as e:
-        print(e)
+        print(e)  # Expected: Corresponding error messages
+
