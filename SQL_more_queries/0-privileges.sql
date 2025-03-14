@@ -1,14 +1,21 @@
--- Ensure user_0d_1 exists
-CREATE USER IF NOT EXISTS 'user_0d_1'@'localhost';
+-- Check if user_0d_1 exists
+SELECT COUNT(*) INTO @user_0d_1_exists FROM mysql.user WHERE user='user_0d_1' AND host='localhost';
+SELECT 'user_0d_1_exists', @user_0d_1_exists;
 
--- Ensure user_0d_2 exists
-CREATE USER IF NOT EXISTS 'user_0d_2'@'localhost';
+-- If user_0d_1 exists, show grants
+IF @user_0d_1_exists THEN
+    SHOW GRANTS FOR 'user_0d_1'@'localhost';
+ELSE
+    SELECT 'There is no such grant defined for user ''user_0d_1'' on host ''localhost''';
+END IF;
 
--- Grant some privileges to user_0d_2 (if necessary)
-GRANT ALL PRIVILEGES ON *.* TO 'user_0d_2'@'localhost';
+-- Check if user_0d_2 exists
+SELECT COUNT(*) INTO @user_0d_2_exists FROM mysql.user WHERE user='user_0d_2' AND host='localhost';
+SELECT 'user_0d_2_exists', @user_0d_2_exists;
 
--- Display privileges for user_0d_1
-SHOW GRANTS FOR 'user_0d_1'@'localhost';
-
--- Display privileges for user_0d_2
-SHOW GRANTS FOR 'user_0d_2'@'localhost';
+-- If user_0d_2 exists, show grants
+IF @user_0d_2_exists THEN
+    SHOW GRANTS FOR 'user_0d_2'@'localhost';
+ELSE
+    SELECT 'There is no such grant defined for user ''user_0d_2'' on host ''localhost''';
+END IF;
