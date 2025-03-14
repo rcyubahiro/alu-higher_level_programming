@@ -1,34 +1,18 @@
--- Revoke unnecessary privileges from user_0d_1
-REVOKE 
-    AUDIT_ABORT_EXEMPT, AUTHENTICATION_POLICY_ADMIN, FIREWALL_EXEMPT, 
-    PASSWORDLESS_USER_ADMIN, SENSITIVE_VARIABLES_OBSERVER 
-ON *.* FROM 'user_0d_1'@'localhost';
+-- Grant all privileges to user_0d_1 (root user)
+GRANT ALL PRIVILEGES ON *.* TO 'user_0d_1'@'localhost' WITH GRANT OPTION;
 
--- Revoke any excessive privileges from user_0d_2 (if necessary)
+-- Ensure privileges are applied
+FLUSH PRIVILEGES;
+
+-- Revoke all privileges from user_0d_2 (if necessary to reset)
 REVOKE ALL PRIVILEGES, GRANT OPTION FROM 'user_0d_2'@'localhost';
 
--- Grant expected privileges to user_0d_1
-GRANT 
-    SELECT, INSERT, UPDATE, DELETE, CREATE, DROP, RELOAD, SHUTDOWN, PROCESS, 
-    FILE, REFERENCES, INDEX, ALTER, SHOW DATABASES, SUPER, CREATE TEMPORARY TABLES, 
-    LOCK TABLES, EXECUTE, REPLICATION SLAVE, REPLICATION CLIENT, CREATE VIEW, SHOW VIEW, 
-    CREATE ROUTINE, ALTER ROUTINE, CREATE USER, EVENT, TRIGGER, CREATE TABLESPACE, 
-    CREATE ROLE, DROP ROLE 
-ON *.* TO 'user_0d_1'@'localhost';
-
-GRANT 
-    APPLICATION_PASSWORD_ADMIN, AUDIT_ADMIN, BACKUP_ADMIN, BINLOG_ADMIN, 
-    BINLOG_ENCRYPTION_ADMIN, CLONE_ADMIN, CONNECTION_ADMIN, ENCRYPTION_KEY_ADMIN, 
-    FLUSH_OPTIMIZER_COSTS, FLUSH_STATUS, FLUSH_TABLES, FLUSH_USER_RESOURCES, 
-    GROUP_REPLICATION_ADMIN, INNODB_REDO_LOG_ARCHIVE, INNODB_REDO_LOG_ENABLE, 
-    PERSIST_RO_VARIABLES_ADMIN, REPLICATION_APPLIER, REPLICATION_SLAVE_ADMIN, 
-    RESOURCE_GROUP_ADMIN, RESOURCE_GROUP_USER, ROLE_ADMIN, SERVICE_CONNECTION_ADMIN, 
-    SESSION_VARIABLES_ADMIN, SET_USER_ID, SHOW_ROUTINE, SYSTEM_USER, 
-    SYSTEM_VARIABLES_ADMIN, TABLE_ENCRYPTION_ADMIN, XA_RECOVER_ADMIN 
-ON *.* TO 'user_0d_1'@'localhost';
-
--- Grant specific privileges to user_0d_2
+-- Grant only SELECT and INSERT privileges to user_0d_2 on user_2_db
 GRANT SELECT, INSERT ON user_2_db.* TO 'user_0d_2'@'localhost';
 
--- Flush privileges to apply the changes
+-- Apply the changes
 FLUSH PRIVILEGES;
+
+-- Optional: Verify grants (uncomment if needed)
+-- SHOW GRANTS FOR 'user_0d_1'@'localhost';
+-- SHOW GRANTS FOR 'user_0d_2'@'localhost';
