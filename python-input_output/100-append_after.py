@@ -3,10 +3,10 @@
 
 
 def append_after(filename="", search_string="", new_string=""):
-    '''Module Search and update'''
+    """Search and update the file content."""
     with open(filename, 'r') as f:
-         lines = f.readlines()
-    
+        lines = f.readlines()
+
     with open(filename, 'w') as f:
         for line in lines:
             f.write(line)
