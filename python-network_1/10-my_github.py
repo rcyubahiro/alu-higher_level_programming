@@ -1,18 +1,19 @@
 #!/usr/bin/python3
 """
-Script that takes in a URL and an email address,
-sends a POST request to the passed URL with the email as a parameter,
-and finally displays the body of the response.
+Script that takes GitHub credentials (username and personal access token)
+and uses the GitHub API to display the user's ID.
 """
+import sys
 import requests
-from sys import argv
 
 if __name__ == '__main__':
-    payload = {'email': argv[2]}
-    r = requests.post(argv[1], data=payload)
-    
-    # If the response was unsuccessful, return None
-    if r.status_code != 200 or not r.text.strip():
-        print(None)
+    username = sys.argv[1]
+    token = sys.argv[2]
+
+    url = "https://api.github.com/user"
+    response = requests.get(url, auth=(username, token))
+
+    if response.status_code == 200:
+        print(response.json().get("id"))
     else:
-        print(r.text)
+        print(None)
