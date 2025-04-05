@@ -1,13 +1,13 @@
 #!/usr/bin/python3
-"""A script that
-fetches https://intranet.hbtn.io/status.
-"""
-
+"""A script that fetches https://intranet.hbtn.io/status with headers."""
 
 if __name__ == '__main__':
     import urllib.request
 
-    with urllib.request.urlopen('https://intranet.hbtn.io/status') as resp:
+    url = 'https://intranet.hbtn.io/status'
+    req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
+
+    with urllib.request.urlopen(req) as resp:
         content = resp.read()
         print("Body response:")
         print("\t- type: {}".format(type(content)))

@@ -1,14 +1,18 @@
 #!/usr/bin/python3
 """
-Python script that takes your Github credentials (username and password)
-and uses the Github API to display your id
+Script that takes in a URL and an email address,
+sends a POST request to the passed URL with the email as a parameter,
+and finally displays the body of the response.
 """
 import requests
-from requests.auth import HTTPBasicAuth
 from sys import argv
 
 if __name__ == '__main__':
-    url = 'https://api.github.com/users/{}'.format(argv[1])
-    r = requests.get(url,
-                     auth=HTTPBasicAuth(argv[1], argv[2]))
-    print(r.json().get('id'))
+    payload = {'email': argv[2]}
+    r = requests.post(argv[1], data=payload)
+    
+    # If the response was unsuccessful, return None
+    if r.status_code != 200 or not r.text.strip():
+        print(None)
+    else:
+        print(r.text)
