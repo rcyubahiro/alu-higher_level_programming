@@ -1,14 +1,14 @@
 #!/usr/bin/python3
 """
-Script that fetches http://0.0.0.0:5050/status
+Python script that fetches https://alu-intranet.hbtn.io/status
 """
 import requests
 
 if __name__ == '__main__':
-    url = "http://0.0.0.0:5050/status"  # Change the URL to the required one
-    response = requests.get(url)
-    text = response.text
-
+    url = 'https://intranet.hbtn.io/status'
+    if url.startswith('https://'):
+        url = "https://alu-intranet.hbtn.io/status"
+    res = requests.get(url)
     print("Body response:")
-    print("\t- type: {}".format(type(text)))
-    print("\t- content: {}".format(text))
+    print("\t- type: {}".format(type(res.text)))
+    print("\t- content: {}".format(res.text))
