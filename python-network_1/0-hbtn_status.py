@@ -1,11 +1,11 @@
 #!/usr/bin/python3
 """
-Script that fetches https://alu-intranet.hbtn.io/status
+Script that fetches http://0.0.0.0:5050/status
 """
 import urllib.request
 
 if __name__ == '__main__':
-    url = "https://alu-intranet.hbtn.io/status"
+    url = "http://0.0.0.0:5050/status"
     
     # Using with statement to open the URL
     with urllib.request.urlopen(url) as response:
